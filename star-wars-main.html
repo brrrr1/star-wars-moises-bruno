@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>Star Wars</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -19,7 +19,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('fondo.jpg');
+            background-image: url('star-wars-background.jpg');
             background-size: cover;
             background-position: center;
             filter: blur(10px);
@@ -35,8 +35,6 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
-
-        <!--Chema ha muerto-->
 
         .navbar {
             padding: 40px;
@@ -62,20 +60,20 @@
             text-shadow: -1px -1px 0 #45419a, 1px -1px 0 #45419a, -1px 1px 0 #45419a, 1px 1px 0 #45419a;
         }
 
-        .pokemon-table {
+        .character-table {
             border-radius: 10px;
             padding: 20px;
             margin: 0 auto;
             width: 90%;
         }
 
-        .pokemon-row {
+        .character-row {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
         }
 
-        .pokemon-card {
+        .character-card {
             display: flex;
             align-items: center;
             background-color: #cbcbcb;
@@ -88,122 +86,40 @@
             box-sizing: border-box;
         }
 
-        .pokemon-card img {
+        .character-card img {
             width: 60px;
             height: 60px;
             margin-right: 10px;
         }
 
-        .pokemon-info {
+        .character-info {
             display: flex;
             flex-direction: column;
             justify-content: center;
             margin-right: auto;
         }
 
-        .pokemon-name {
+        .character-name {
             font-size: 0.7rem;
             font-weight: bold;
         }
 
-        .pokemon-number {
+        .character-details {
             font-size: 0.6rem;
         }
-
-        .pokemon-types {
-            display: flex;
-            gap: 5px;
-        }
-
-        .type-badge {
-            background-color: #6c757d;
-            border-radius: 5px;
-            color: #fff;
-            padding: 3px 7px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .grass {
-            background-color: #78C850;
-        }
-
-        .poison {
-            background-color: #A040A0;
-        }
-
-        .fire {
-            background-color: #F08030;
-        }
-
-        .water {
-            background-color: #6890F0;
-        }
-
-        .bug {
-            background-color: #A8B820;
-        }
-
-        .flying {
-            background-color: #A890F0;
-        }
-
-        .normal {
-            background-color: #A8A878;
-        }
-
-        .fairy {
-        background-color: #EE99AC;
-    }
-
-    .electric {
-        background-color: #F8D030;
-    }
-
-    .ground {
-        background-color: #E0C068;
-    }
-
-    .fighting {
-        background-color: #C03028;
-    }
-
-    .psychic {
-        background-color: #F85888;
-    }
-
-    .ghost {
-        background-color: #705898;
-    }
-
-    .rock {
-        background-color: #B8A038;
-    }
-
-    .dragon {
-        background-color: #7038F8;
-    }
-
-    .ice {
-        background-color: #98D8D8;
-    }
-
-    .steel {
-        background-color: #B8B8D0;
-    }
     </style>
 </head>
 
 <body>
 
     <nav class="navbar">
-        <a class="navbar-brand" href="pokedex-main.html">
-            <img src="logo.png" alt="Pokedex Logo">
+        <a class="navbar-brand" href="star-wars-main.html">
+            <img src="star-wars-logo.png" alt="Star Wars Logo">
         </a>
         <div class="nav-container">
-            <a class="nav-link" href="#">Items</a>
-            <a class="nav-link" href="#">Moves</a>
-            <a class="nav-link" href="#">Games</a>
+            <a class="nav-link" href="#">Characters</a>
+            <a class="nav-link" href="#">Planets</a>
+            <a class="nav-link" href="#">Starships</a>
         </div>
     </nav>
 
