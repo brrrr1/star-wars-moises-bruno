@@ -1,132 +1,58 @@
-$(document).ready(function () {
-  var urlParams = new URLSearchParams(window.location.search);
-  var pokemonId = urlParams.get("id");
-
-  if (pokemonId == null) {
-    alert("No se ha recibido el ID de pokemon");
-    return;
+$(document).ready(function() {
+  var characterId = getParameterByName('id');
+  if (characterId) {
+    fetchCharacterDetails(characterId);
   }
 
-  function changeBackgroundImage(type) {
-    const backgroundImageUrls = {
-      grass: 'url("fondoplanta.jpg")',
-      poison: 'url("fondoveneno.jpg")',
-      fire: 'url("fondofuego.jpg")',
-      water: 'url("fondoagua.jpg")',
-      bug: 'url(fondobicho.jpg)',
-      flying: 'url("fondovolador.jpg")',
-      normal: 'url("fondonormal.jpg")',
-      electric: 'url("fondoelectrico.webp")',
-      ground: 'url("fondotierra.jpg")',
-      fairy: 'url("fondohada.jpg")',
-      fighting: 'url("fondolucha.jpg")',
-      psychic: 'url("fondopsiquico.jpg")',
-      rock: 'url("fondoroca.jpg")',
-      steel: 'url("fondoacero.webp")',
-      ice: 'url("fondohielo.jpg")',
-      ghost: 'url("fondofantasma.jpg")',
-      dragon: 'url("fondodragon.jpg")',
-      dark: 'url("fondosiniestro.jpg")',
-    };
-
-    const backgroundImageUrl = backgroundImageUrls[type] || 'url("default-background.jpg")';
-    $('.background').css('background-image', backgroundImageUrl);
+  function fetchCharacterDetails(id) {
+    $.ajax({
+      url: 'https://swapi.dev/api/people/' + id + '/',
+      method: 'GET',
+      success: function(response) {
+        console.log('Fetched Star Wars character details:', response);
+        displayCharacterDetails(response);
+      },
+      error: function(error) {
+        console.error('Error fetching character details:', error);
+      }
+    });
   }
 
-  $.ajax({
-    url: `https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
-    method: 'GET',
-    success: function (data) {
-      const primaryType = data.types[0].type.name;
-      changeBackgroundImage(primaryType);
-    },
-    error: function () {
-      alert("No se pudo obtener los detalles del Pokémon");
+  function displayCharacterDetails(characterData) {
+    var detailContent = $('#detail-content');
+    if (detailContent.length === 0) {
+      console.error('Detail content container not found');
+      return;
     }
-  });
 
-  $.ajax({
-    url: `https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
-    method: 'GET',
-    success: function (data) {
-      $.ajax({
-        url: data.species.url,
-        method: 'GET',
-        success: function (speciesData) {
-          $.ajax({
-            url: speciesData.evolution_chain.url,
-            method: 'GET',
-            success: function (evolutionData) {
-              var evolutions = [];
-              var evoChain = evolutionData.chain;
+    var characterDetail = `
+      <div class="character-detail">
+        <div class="character-name">${characterData.name}</div>
+        <div class="character-details">
+          <div>Height: ${characterData.height}</div>
+          <div>Mass: ${characterData.mass}</div>
+          <div>Gender: ${characterData.gender}</div>
+          <div>Birth Year: ${characterData.birth_year}</div>
+          <div>Hair Color: ${characterData.hair_color}</div>
+          <div>Skin Color: ${characterData.skin_color}</div>
+          <div>Eye Color: ${characterData.eye_color}</div>
+          <div>Films: ${characterData.films.join(', ')}</div>
+          <div>Species: ${characterData.species.join(', ')}</div>
+          <div>Vehicles: ${characterData.vehicles.join(', ')}</div>
+          <div>Starships: ${characterData.starships.join(', ')}</div>
+        </div>
+      </div>
+    `;
+    detailContent.html(characterDetail);
+  }
 
-              do {
-                var evoDetails = evoChain['evolves_to'];
-                evolutions.push({
-                  "species_name": evoChain.species.name,
-                  "url": evoChain.species.url
-                });
-
-                evoChain = evoDetails[0];
-              } while (!!evoChain && evoChain.hasOwnProperty('evolves_to'));
-
-              var types = data.types.map(function (typeInfo) {
-                return '<span class="' + typeInfo.type.name + '">' + typeInfo.type.name.toUpperCase() + '</span>';
-              }).join(' ');
-
-              var abilities = data.abilities.map(function (abilityInfo) {
-                return abilityInfo.ability.name;
-              }).join(', ');
-
-              var template = `
-                  <section class="pokemon-info container">
-                    <img src="${data.sprites.front_default}" alt="${data.name}">
-                    <div class="pokemon-details">
-                      <h2>${data.name}</h2>
-                      <div class="types">
-                        ${types}
-                      </div>
-                      <ul class="list-unstyled">
-                        <li><strong>N°${data.id.toString().padStart(3, '0')} - ${speciesData.generation.name}</strong></li>
-                        <li>Altura: ${data.height / 10}m</li>
-                        <li><strong>Peso:</strong> ${data.weight / 10}kg</li>
-                        <li>Sexo: ♂ ♀</li>
-                        <li>Categoría: ${speciesData.genera.find(function (genus) {
-                return genus.language.name === 'es';
-              }).genus}</li>
-                        <li>Habilidad: ${abilities}</li>
-                      </ul>
-                    </div>
-                  </section>
-                  <section class="container evoluciones-container">
-                    <div class="evoluciones">
-                      ${evolutions.map(function (evo) {
-                var evoId = evo.url.split('/').filter(Boolean).pop();
-                return '<div class="evolucion"><a href="detail.html?id=' + evoId + '"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + evoId + '.png" alt="' + evo.species_name + '"></a></div>';
-              }).join('')}
-                    </div>
-                    <div class="bulbasaur-text">
-                      <p>${speciesData.flavor_text_entries.find(function (entry) {
-                return entry.language.name === 'es';
-              }).flavor_text}</p>
-                    </div>
-                  </section>
-                `;
-
-              $('#pokemon-container').html(template);
-            },
-            error: function () {
-              alert("No se pudo obtener la cadena de evolución del Pokémon");
-            }
-          });
-        },
-        error: function () {
-          alert("No se pudo obtener los detalles de la especie del Pokémon");
-        }
-      });
-    },
-    error: function () {
-      alert("No se pudo obtener los detalles del Pokémon");
-    }
-  });
+  function getParameterByName(name) {
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
 });

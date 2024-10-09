@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Star Wars Details</title>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <style>
             body {
@@ -17,7 +17,7 @@
                 align-items: center;
             }
 
-            .evoluciones-title {
+            .details-title {
                 color: white;
                 text-align: center;
                 font-size: 24px;
@@ -72,7 +72,7 @@
                 text-shadow: -1px -1px 0 #45419a, 1px -1px 0 #45419a, -1px 1px 0 #45419a, 1px 1px 0 #45419a;
             }
 
-            .pokemon-info {
+            .character-info {
                 display: flex;
                 align-items: center;
                 padding: 60px 0;
@@ -82,7 +82,7 @@
                 justify-content: center;
             }
 
-            .pokemon-info img {
+            .character-info img {
                 max-width: 400px;
                 width: 100%;
                 border: 6px solid white;
@@ -91,12 +91,12 @@
                 box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
             }
 
-            .pokemon-details {
+            .character-details {
                 margin-left: 40px;
                 color: white;
             }
 
-            .pokemon-details h2 {
+            .character-details h2 {
                 font-size: 3rem;
                 color: white;
                 text-transform: uppercase;
@@ -104,105 +104,18 @@
                 margin-bottom: 15px;
             }
 
-            .pokemon-details .types {
-                display: flex;
-                gap: 15px;
-                margin-bottom: 15px;
-            }
-
-            .types span {
-                padding: 10px 20px;
-                color: white;
-                font-weight: bold;
-                border-radius: 30px;
-                text-transform: uppercase;
-                box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .types .grass {
-                background-color: #58a958;
-            }
-
-            .types .poison {
-                background-color: #b564d9;
-            }
-
-            .types .bug {
-                background-color: #a8b820;
-            }
-
-            .types .fire {
-                background-color: #f08030;
-            }
-
-            .types .water {
-                background-color: #6890f0;
-            }
-
-            .types .electric {
-                background-color: #f8d030;
-            }
-
-            .types .psychic {
-                background-color: #f85888;
-            }
-
-            .types .ice {
-                background-color: #98d8d8;
-            }
-
-            .types .dragon {
-                background-color: #7038f8;
-            }
-
-            .types .dark {
-                background-color: #705848;
-            }
-
-            .types .fairy {
-                background-color: #ee99ac;
-            }
-
-            .types .normal {
-                background-color: #a8a878;
-            }
-
-            .types .fighting {
-                background-color: #c03028;
-            }
-
-            .types .flying {
-                background-color: #a890f0;
-            }
-
-            .types .ground {
-                background-color: #e0c068;
-            }
-
-            .types .rock {
-                background-color: #b8a038;
-            }
-
-            .types .ghost {
-                background-color: #705898;
-            }
-
-            .types .steel {
-                background-color: #b8b8d0;
-            }
-
-            .pokemon-details ul {
+            .character-details ul {
                 list-style: none;
                 padding: 0;
                 font-size: 1.2rem;
                 color: white;
             }
 
-            .pokemon-details ul li {
+            .character-details ul li {
                 padding: 5px 0;
             }
 
-            .evoluciones-container {
+            .related-container {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
@@ -212,25 +125,25 @@
                 justify-content: center;
             }
 
-            .evoluciones {
+            .related {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
                 gap: 30px;
             }
 
-            .evolucion {
+            .related-item {
                 background-color: #ffffff;
                 padding: 20px;
                 border-radius: 20px;
                 box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
             }
 
-            .evoluciones img {
+            .related img {
                 width: 130px;
             }
 
-            .bulbasaur-text {
+            .character-text {
                 max-width: 500px;
                 color: white;
                 font-size: 1.2rem;
@@ -243,16 +156,17 @@
         <div class="background"></div>
         <div class="background-overlay"></div>
         <nav class="navbar">
-            <a class="navbar-brand" href="pokedex-main.html">
-                <img src="logo.png" alt="Pokedex Logo">
+            <a class="navbar-brand" href="star-wars-main.html">
+                <img src="logo.png" alt="Star Wars Logo">
             </a>
             <div class="nav-container">
-                <a class="nav-link" href="#">Items</a>
-                <a class="nav-link" href="#">Moves</a>
-                <a class="nav-link" href="#">Games</a>
+                <a class="nav-link" href="#">Characters</a>
+                <a class="nav-link" href="#">Planets</a>
+                <a class="nav-link" href="#">Starships</a>
             </div>
         </nav>
-        <div id="pokemon-container" class="pokemon-type-background"></div>
+        <div id="character-container" class="character-type-background"></div>
+        <div id="detail-content"></div> <!-- Contenedor agregado -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="detail.js" type="text/javascript"></script>
     </body>

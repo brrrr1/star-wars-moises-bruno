@@ -29,7 +29,7 @@ $(document).ready(function() {
             if (index >= characterList.length) {
                 $('.character-card').click(function() {
                     var characterUrl = $(this).data('url');
-                    window.location.href = 'detail.html?url=' + encodeURIComponent(characterUrl);
+                    redirectToDetailPage(characterUrl);
                 });
                 return;
             }
@@ -45,7 +45,7 @@ $(document).ready(function() {
 
             $('.character-card').click(function() {
                 var characterUrl = $(this).data('url');
-                window.location.href = 'detail.html?url=' + encodeURIComponent(characterUrl);
+                redirectToDetailPage(characterUrl);
             });
 
             $.when.apply($, requests).done(function() {
@@ -79,5 +79,10 @@ $(document).ready(function() {
         }
 
         fetchNextBatch();
+    }
+
+    function redirectToDetailPage(characterUrl) {
+        var characterId = characterUrl.match(/\/people\/(\d+)\//)[1];
+        window.location.href = 'detail.html?id=' + encodeURIComponent(characterId);
     }
 });
